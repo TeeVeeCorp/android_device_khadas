@@ -61,3 +61,11 @@ $(call inherit-product, frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-he
 # set default USB configuration
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
+
+#preinstall apks
+ifneq ($(PREINSTALL_APKS), true)
+$(shell python $(LOCAL_PATH)/apks.py preinstall apks.json)
+include device/khadas/kvim/preinstall/preinstall.mk
+PRODUCT_COPY_FILES += device/amlogic/$(PRODUCT_DIR)/preinstall/preinstall.sh:system/bin/preinstall.sh
+PRODUCT_COPY_FILES += device/amlogic/$(PRODUCT_DIR)/init.preinstall.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.preinstall.rc
+endif      

@@ -35,7 +35,7 @@ def main(argv):
         makefile.write("LOCAL_PATH := $(my-dir)\n\n")
         for root, dirs, files in os.walk(preinstall_dir):
             for file_name in files:
-                p = re.compile(r'\S*(?=.apk\b)')
+                p = re.compile(r'\S*(?=.tar\b)')
                 found = p.search(file_name)
                 if found:
                     makefile.write(templet %(found.group(), argv[1]))
